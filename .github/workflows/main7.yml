@@ -1,0 +1,30 @@
+name: Cypress Testing in GitHub Environment
+on: [push]
+jobs:
+Chrome:
+runs-on: ubuntu-latest
+steps:
+- name: Checkout Code
+uses: actions/checkout@v2
+
+        - name: Install Node
+          uses: actions/setup-node@v1
+          with:
+              node-version: '14'
+
+        - name: Install Packages
+          run: |
+              npm install && npm install cypress
+
+        - name: Next Build
+          run: |
+              npm run build
+
+        - name: Start Server
+          run: |
+              npm start &
+
+        - name: Run Cypress E2E on Chome 🌲
+          uses: cypress-io/github-action@v2
+          with:
+              start: npm run start
