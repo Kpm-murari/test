@@ -1,0 +1,25 @@
+
+name: Cypress Testing in GitHub Environment
+on: [push]
+jobs:
+Chrome:
+runs-on: ubuntu-latest
+steps:
+- name: Checkout Code
+uses: actions/checkout@v2
+      
+        - name: Install Cypress
+            uses: actions/setup-cypress@v1
+            with:
+              cypress-version: '16'
+        - name: Import Packages
+          run: |
+              cypress init -y
+
+        - name: Install Packages
+          run: |
+              npm install cypress --save-dev
+
+        - name: Start Server and Run Test
+          run: |
+              npx cypress open
